@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <h2>SSVEP Config - Form <font color="red">L</font><font color="green">E</font><font color="blue">D</font> Interface</h2>
+        <form action="/gui" method="POST" id="form1">
+        <textarea id="config" name="config" cols=90 rows=20></textarea>
+        <br>
+        </form>
+        
+        <button type="submit" form="form1" value="Submit">
+            Setting Up
+        </button>
+
+        {% if message is not None %}
+            <p><font color="green">{{ message }}</font></p>
+        {% end %}
+
+        <script type="text/javascript">
+        
+        var txt = '';
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(xmlhttp.status == 200 && xmlhttp.readyState == 4){
+                txt = JSON.parse(xmlhttp.responseText);
+                document.getElementById('config').value = txt;
+            }
+        };
+        xmlhttp.open("GET", "config.json", true);
+        xmlhttp.send();
+
+        </script>
+    </body>
+</html>
